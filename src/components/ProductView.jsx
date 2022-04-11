@@ -50,7 +50,7 @@ const ProductView = (props) => {
   };
 
   useEffect(() => {
-    setPreviewImg(product.image01);
+    setPreviewImg(product.image_url);
     setQuantity(1);
     // setColor(undefined);
     // setSize(undefined);
@@ -121,9 +121,9 @@ const ProductView = (props) => {
           </div>
           <div
             className="product__images__list__item"
-            onClick={() => setPreviewImg(product.image02)}
+            onClick={() => setPreviewImg(product?.img02)}
           >
-            <img src={product.image02} alt="" />
+            <img src={product?.img02} alt="" />
           </div>
         </div>
         <div className="product__images__main">

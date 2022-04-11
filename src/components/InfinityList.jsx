@@ -5,6 +5,7 @@ import Grid from './Grid';
 import ProductCard from './ProductCard';
 
 const InfinityList = (props) => {
+  console.log('data product', props.data);
   const perLoad = 6; // items each load
 
   const listRef = useRef(null);

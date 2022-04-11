@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "bx bx-user",
+    "content": "Thông tin cá nhân",
+    "url": "/profile"
+  },
+  {
+    "icon": "bx bx-lock",
+    "content": "Đổi mật khẩu",
+    "url": "/password"
+  },
+  {
+    "icon": "bx bx-cog",
+    "content": "Cài đặt",
+    "url": "/"
+  },
+  {
+    "icon": "bx bx-log-out-circle bx-rotate-180",
+    "content": "Đăng xuất",
+    "url": "/"
+  }
+]

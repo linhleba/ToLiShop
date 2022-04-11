@@ -17,10 +17,10 @@ import * as api from '../api/index';
 
 const Home = () => {
   const getProducts = (products, count) => {
-    const max = products.length - count;
+    const max = products?.length - count;
     const min = 0;
     const start = Math.floor(Math.random() * (max - min) + min);
-    return products.slice(start, start + count);
+    return products?.slice(start, start + count);
   };
   const [books, setBooks] = useState([]);
   useEffect(async () => {
@@ -63,16 +63,17 @@ const Home = () => {
         <SectionTitle>top sản phẩm bán chạy trong tuần</SectionTitle>
         <SectionBody>
           <Grid col={4} mdCol={2} smCol={1} gap={20}>
-            {getProducts(books, 4).map((item, index) => (
-              <ProductCard
-                key={index}
-                img01={item.image_url}
-                img02={item.image_url}
-                name={item.name}
-                price={Number(item.price)}
-                slug={item.id}
-              />
-            ))}
+            {books &&
+              getProducts(books, 4).map((item, index) => (
+                <ProductCard
+                  key={index}
+                  img01={item.image_url}
+                  img02={item.image_url}
+                  name={item.name}
+                  price={Number(item.price)}
+                  slug={item.id}
+                />
+              ))}
           </Grid>
         </SectionBody>
       </Section>
@@ -83,16 +84,17 @@ const Home = () => {
         <SectionTitle>sản phẩm mới</SectionTitle>
         <SectionBody>
           <Grid col={4} mdCol={2} smCol={1} gap={20}>
-            {getProducts(books, 8).map((item, index) => (
-              <ProductCard
-                key={index}
-                img01={item.image_url}
-                img02={item.image_url}
-                name={item.name}
-                price={Number(item.price)}
-                slug={item.id}
-              />
-            ))}
+            {books &&
+              getProducts(books, 8).map((item, index) => (
+                <ProductCard
+                  key={index}
+                  img01={item.image_url}
+                  img02={item.image_url}
+                  name={item.name}
+                  price={Number(item.price)}
+                  slug={item.id}
+                />
+              ))}
           </Grid>
         </SectionBody>
       </Section>
@@ -113,16 +115,17 @@ const Home = () => {
         <SectionTitle>phổ biến</SectionTitle>
         <SectionBody>
           <Grid col={4} mdCol={2} smCol={1} gap={20}>
-            {getProducts(books, 12).map((item, index) => (
-              <ProductCard
-                key={index}
-                img01={item.image_url}
-                img02={item.image_url}
-                name={item.name}
-                price={Number(item.price)}
-                slug={item.id}
-              />
-            ))}
+            {books &&
+              getProducts(books, 12).map((item, index) => (
+                <ProductCard
+                  key={index}
+                  img01={item.image_url}
+                  img02={item.image_url}
+                  name={item.name}
+                  price={Number(item.price)}
+                  slug={item.id}
+                />
+              ))}
           </Grid>
         </SectionBody>
       </Section>

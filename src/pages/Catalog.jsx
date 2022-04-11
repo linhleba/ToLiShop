@@ -4,12 +4,13 @@ import Helmet from '../components/Helmet';
 import CheckBox from '../components/CheckBox';
 
 import productData from '../assets/fake-data/products';
-import category from '../assets/fake-data/category';
+// import category from '../assets/fake-data/category';
 import colors from '../assets/fake-data/product-color';
 import size from '../assets/fake-data/product-size';
 import Button from '../components/Button';
 import InfinityList from '../components/InfinityList';
 import * as api from '../api/index';
+import apiCaller from '../utils/apiCaller';
 
 const Catalog = () => {
   const initFilter = {
@@ -17,8 +18,14 @@ const Catalog = () => {
     color: [],
     size: [],
   };
+  const [category, setCategory] = useState([]);
+  useEffect(() => {
+    apiCaller('api/category').then((res) => {
+      setCategory(res.data);
+    });
+  }, []);
 
-  const productList = productData.getAllProducts();
+  // const productList = productData.getAllProducts();
 
   const [products, setProducts] = useState(null);
 
@@ -30,38 +37,37 @@ const Catalog = () => {
   }, []);
 
   const filterSelect = (type, checked, item) => {
+    console.log('item la', item);
     if (checked) {
       switch (type) {
         case 'CATEGORY':
           setFilter({
             ...filter,
-            category: [...filter.category, item.categorySlug],
+            category: [...filter.category, item],
           });
           break;
-        case 'COLOR':
-          setFilter({ ...filter, color: [...filter.color, item.color] });
-          break;
-        case 'SIZE':
-          setFilter({ ...filter, size: [...filter.size, item.size] });
-          break;
+        // case 'COLOR':
+        //   setFilter({ ...filter, color: [...filter.color, item.color] });
+        //   break;
+        // case 'SIZE':
+        //   setFilter({ ...filter, size: [...filter.size, item.size] });
+        //   break;
         default:
       }
     } else {
       switch (type) {
         case 'CATEGORY':
-          const newCategory = filter.category.filter(
-            (e) => e !== item.categorySlug,
-          );
+          const newCategory = filter.category.filter((e) => e !== item);
           setFilter({ ...filter, category: newCategory });
           break;
-        case 'COLOR':
-          const newColor = filter.color.filter((e) => e !== item.color);
-          setFilter({ ...filter, color: newColor });
-          break;
-        case 'SIZE':
-          const newSize = filter.size.filter((e) => e !== item.size);
-          setFilter({ ...filter, size: newSize });
-          break;
+        // case 'COLOR':
+        //   const newColor = filter.color.filter((e) => e !== item.color);
+        //   setFilter({ ...filter, color: newColor });
+        //   break;
+        // case 'SIZE':
+        //   const newSize = filter.size.filter((e) => e !== item.size);
+        //   setFilter({ ...filter, size: newSize });
+        //   break;
         default:
       }
     }
@@ -69,29 +75,57 @@ const Catalog = () => {
 
   const clearFilter = () => setFilter(initFilter);
 
-  const updateProducts = useCallback(() => {
-    let temp = productList;
+  const updateProducts = useCallback(async () => {
+    // let temp = productList;
+
+    // if (filter.category.length > 0) {
+    //   temp = temp.filter((e) => filter.category.includes(e.categorySlug));
+    // }
+
+    // if (filter.color.length > 0) {
+    //   temp = temp.filter((e) => {
+    //     const check = e.colors.find((color) => filter.color.includes(color));
+    //     return check !== undefined;
+    //   });
+    // }
+
+    // if (filter.size.length > 0) {
+    //   temp = temp.filter((e) => {
+    //     const check = e.size.find((size) => filter.size.includes(size));
+    //     return check !== undefined;
+    //   });
+    // }
 
     if (filter.category.length > 0) {
-      temp = temp.filter((e) => filter.category.includes(e.categorySlug));
+      // console.log(filter.category[0]);
+      let temp = [];
+
+      console.log('filter', filter.category);
+
+      // setProducts([]);
+      await Promise.all(
+        filter.category.map(async (item) => {
+          // console.log('item id la:', item);
+          await apiCaller(`api/book/filterCategory/${item.id}`).then((res) => {
+            console.log(res);
+            // temp.push(res?.data);
+            setProducts(res?.data);
+          });
+        }),
+      ).catch((err) => console.error(err));
+
+      console.log('temp la:', temp);
+
+      // setProducts(temp);
+      console.log('update product', products);
+    } else {
+      console.log('vao day');
+      const res = await api.getBook();
+      setProducts(res.data);
     }
 
-    if (filter.color.length > 0) {
-      temp = temp.filter((e) => {
-        const check = e.colors.find((color) => filter.color.includes(color));
-        return check !== undefined;
-      });
-    }
-
-    if (filter.size.length > 0) {
-      temp = temp.filter((e) => {
-        const check = e.size.find((size) => filter.size.includes(size));
-        return check !== undefined;
-      });
-    }
-
-    setProducts(temp);
-  }, [filter, productList]);
+    // setProducts(temp);
+  }, [filter]);
 
   useEffect(() => {
     updateProducts();
@@ -122,11 +156,11 @@ const Catalog = () => {
                   className="catalog__filter__widget__content__item"
                 >
                   <CheckBox
-                    label={item.display}
+                    label={item.name}
                     onChange={(input) =>
                       filterSelect('CATEGORY', input.checked, item)
                     }
-                    checked={filter.category.includes(item.categorySlug)}
+                    checked={filter.category.includes(item)}
                   />
                 </div>
               ))}
