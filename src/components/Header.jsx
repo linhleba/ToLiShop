@@ -10,6 +10,7 @@ import { logout } from '../redux/ducks/auth';
 import { useDispatch } from 'react-redux';
 import './header.css';
 import callAPI from '../utils/apiCaller';
+import { useSelector } from 'react-redux';
 
 const renderUserToggle = (user) => (
   <div className="top-nav__right-user">
@@ -39,6 +40,7 @@ const mainNav = [
 ];
 
 const Header = (props) => {
+  const cartItems = useSelector((state) => state.cartItems.value);
   const [currentUser, setCurrentUser] = useState(null);
   const dispatch = useDispatch();
   const [openPopup, setOpenPopup] = useState(false);
@@ -150,7 +152,9 @@ const Header = (props) => {
             </div>
             <div className="header__menu__item header__menu__right__item">
               <Link to="/cart">
-                <i className="bx bx-shopping-bag"></i>
+                <i className="bx bx-shopping-bag relative-position">
+                  <button className="quantity__cart">{cartItems.length}</button>
+                </i>
               </Link>
             </div>
             <div className="header__menu__item header__menu__right__item">
