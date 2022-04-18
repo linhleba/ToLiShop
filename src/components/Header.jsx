@@ -55,9 +55,9 @@ const Header = (props) => {
     }).then((res) => {
       console.log(res);
       setCurrentUser({
-        display_name: res.data.username,
-        image: res.data.photo
-          ? res.data.photo
+        display_name: res.data?.username,
+        image: res.data?.photo
+          ? res.data?.photo
           : 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
       });
     });

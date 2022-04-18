@@ -1,0 +1,78 @@
+.progress__container {
+  text-align: center;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.progress-container {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 200px;
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+  color: black;
+}
+.progress-container::before {
+  content: '';
+  /* text-align: center; */
+  background-color: whitesmoke;
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 100%;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+
+.progress {
+  text-align: center;
+  background-color: blue;
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translateY(-50%);
+  height: 4px;
+  width: 0%;
+  z-index: -1;
+  transition: 0.4s ease;
+}
+.circle {
+  background-color: whitesmoke;
+  color: #999;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  border: 3px solid #b2bec3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s ease;
+  /* border-color: blue; */
+}
+.circle.active {
+  border-color: blue;
+  color: black;
+}
+.progress-container__item {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  /* position: absolute; */
+}
+.progress-text {
+  /* margin-bottom: 10px; */
+  position: absolute;
+  top: 60px;
+  z-index: -1;
+}
+
+/* button {
+  margin-top: 50px;
+} */
