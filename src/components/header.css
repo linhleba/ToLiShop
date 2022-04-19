@@ -88,3 +88,6 @@
   border-color: transparent;
   font-weight: bold;
 }
+.header__logo img {
+  height: 70px;
+}
