@@ -81,11 +81,12 @@ const ProductView = (props) => {
         name: product.name,
         image_url: product.image_url,
       };
-      if (dispatch(addItem(newItem))) {
-        alert('Success');
-      } else {
-        alert('Fail');
-      }
+      dispatch(addItem(newItem));
+      // if (dispatch(addItem(newItem))) {
+      //   alert('Success');
+      // } else {
+      //   alert('Fail');
+      // }
     }
   };
 
@@ -153,40 +154,6 @@ const ProductView = (props) => {
           <span className="product__info__item__price">
             {product.price.toLocaleString()}
           </span>
-        </div>
-        <div className="product__info__item">
-          <div className="product__info__item__title">Màu sắc</div>
-          {/* <div className="product__info__item__list">
-            {product.colors.map((item, index) => (
-              <div
-                key={index}
-                className={`product__info__item__list__item ${
-                  color === item ? 'active' : ''
-                }`}
-                onClick={() => setColor(item)}
-              >
-                <div className={`circle bg-${item}`}></div>
-              </div>
-            ))}
-          </div> */}
-        </div>
-        <div className="product__info__item">
-          <div className="product__info__item__title">Kích cỡ</div>
-          {/* <div className="product__info__item__list">
-            {product.size.map((item, index) => (
-              <div
-                key={index}
-                className={`product__info__item__list__item ${
-                  size === item ? 'active' : ''
-                }`}
-                onClick={() => setSize(item)}
-              >
-                <span className="product__info__item__list__item__size">
-                  {item}
-                </span>
-              </div>
-            ))}
-          </div> */}
         </div>
         <div className="product__info__item">
           <div className="product__info__item__title">Số lượng</div>

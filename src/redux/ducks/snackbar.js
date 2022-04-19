@@ -10,6 +10,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_SNACKBAR:
       const { snackbarOpen, snackbarMessage, snackbarType } = action;
+      // console.log('vao snackbar');
       return {
         ...state,
         snackbarOpen,

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './progress.css';
 import * as ReactDOM from 'react-dom';
 
-const Progress = () => {
-  const [step, setStep] = useState(2);
+const Progress = ({ step }) => {
+  // const [step, setStep] = useState(2);
   const [progress, setProgress] = useState(50);
   const circles = document.querySelectorAll('.circle');
 

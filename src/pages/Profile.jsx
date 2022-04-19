@@ -3,7 +3,7 @@ import Controls from '../components/controls/Controls';
 import { Grid, TextField } from '@material-ui/core';
 import { useForm, Form } from '../components/useForm/useForm';
 import { useDispatch } from 'react-redux';
-import { setSnackbar } from '../components/redux/ducks/snackbar';
+import { setSnackbar } from '../redux/ducks/snackbar';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import callAPI from '../utils/apiCaller';
 import Axios from 'axios';
@@ -37,7 +37,7 @@ const Profile = () => {
         temp.phone = '';
       } else {
         temp.phone =
-          fieldValues.phone.length > 9 ? '' : 'Số điện thoại không hợp lệ.';
+          fieldValues.phone.length > 8 ? '' : 'Số điện thoại không hợp lệ.';
       }
     }
 

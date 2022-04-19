@@ -3,7 +3,7 @@ import Controls from '../components/controls/Controls';
 import { Grid, TextField } from '@material-ui/core';
 import { useForm, Form } from '../components/useForm/useForm';
 import { useDispatch } from 'react-redux';
-import { setSnackbar } from '../components/redux/ducks/snackbar';
+import { setSnackbar } from '../redux/ducks/snackbar';
 import callAPI from '../utils/apiCaller';
 
 const Password = () => {

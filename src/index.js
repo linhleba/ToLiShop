@@ -11,10 +11,12 @@ import './sass/index.scss';
 import './assets/css/index.css';
 
 import Layout from './components/Layout';
+import SnackBar from './components/snackbar/SnackBar';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+      <SnackBar />
       <Layout />
     </Provider>
   </React.StrictMode>,

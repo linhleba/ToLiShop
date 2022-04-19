@@ -1,0 +1,18 @@
+.gridContainer {
+  display: flex;
+  justify-content: center;
+  spacing: 10px;
+  flex-direction: column;
+}
+.photo-info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.photo-info input {
+  margin: 25px;
+}
+.userImageInfo {
+  max-width: 200px;
+  max-height: 200px;
+}

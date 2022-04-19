@@ -36,7 +36,7 @@ const ProductCard = (props) => {
           animate={true}
           onClick={() => {
             dispatch(set(props.slug));
-            alert(props.slug);
+            // alert(props.slug);
           }}
         >
           chọn mua

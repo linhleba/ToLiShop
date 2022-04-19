@@ -154,7 +154,7 @@ label {
   margin-right: 20px;
 }
 .heading__est-time {
-  color: rgb(38, 188, 78);
+  color: #4267b2;
   font-weight: 500;
   font-size: 14px;
   display: block;
@@ -182,7 +182,7 @@ label {
   flex-basis: 30%;
 }
 .heading__shipping-fee--no-fee {
-  color: rgb(0, 153, 0);
+  color: #4267b2;
   white-space: nowrap;
   font-weight: 500;
   display: flex;

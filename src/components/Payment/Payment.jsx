@@ -6,8 +6,25 @@ import numberWithCommas from '../../utils/numberWithCommas';
 import apiCaller from '../../utils/apiCaller';
 import { useDispatch } from 'react-redux';
 import { setSnackbar } from '../../redux/ducks/snackbar';
+import { Link } from 'react-router-dom';
 
 const Payment = () => {
+  const [info, setInfo] = useState([]);
+  useEffect(async () => {
+    let profile = localStorage.getItem('profile');
+    let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
+    await apiCaller('api/account/info', 'get', null, {
+      authorization: access_jwt_token,
+    }).then((res) => {
+      console.log('ket qua tra ve', res);
+      setInfo({
+        name: res.data.name ? res.data.name : 'Chưa xác định',
+        address: res.data.address ? res.data.address : 'Chưa xác định',
+        phone: res.data.telephone ? res.data.telephone : 'Chưa xác định',
+      });
+    });
+    // console.log('info is', info);
+  }, []);
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartItems.value);
   const [cartProducts, setCartProducts] = useState(
@@ -228,9 +245,11 @@ const Payment = () => {
           </div>
         </div>
 
-        <button className="order-button" type="submit" onClick={handleSubmit}>
-          Đặt mua
-        </button>
+        <Link to="/history">
+          <button className="order-button" type="submit" onClick={handleSubmit}>
+            Đặt mua
+          </button>
+        </Link>
       </div>
       <div className="right-container">
         <div className="address">
@@ -238,12 +257,10 @@ const Payment = () => {
           <div className="border-box">
             <div className="address-title">Thông tin giao hàng</div>
             <div className="address-info">
-              <span className="address-info__name">Lê Bá Lĩnh</span>
-              <span className="address-info__street">
-                KTX Khu B, ĐHQG TPHCM.
-              </span>
+              <span className="address-info__name">{info.name}</span>
+              <span className="address-info__street">{info.address}</span>
               <span className="address-info__phone">
-                Điện thoại: 0123456578{' '}
+                Điện thoại: +84{info.phone}
               </span>
             </div>
           </div>
