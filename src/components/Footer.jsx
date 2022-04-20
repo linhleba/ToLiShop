@@ -63,7 +63,7 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <div className="footer__title">Về Yolo</div>
+            <div className="footer__title">Về ToLi</div>
             <div className="footer__content">
               {footerAboutLinks.map((item, index) => (
                 <p key={index}>
@@ -94,9 +94,9 @@ const Footer = () => {
               </Link>
             </p>
             <p>
-              Hướng đến mục tiêu mang lại niềm vui ăn mặc mới mỗi ngày cho hàng
-              triệu người tiêu dùng Việt. Hãy cùng Yolo hướng đến một cuộc sống
-              năng động, tích cực hơn.
+              Hướng đến mục tiêu mang lại tri thức mỗi ngày cho hàng triệu người
+              tiêu dùng Việt. Hãy cùng ToLi hướng đến một cuộc sống năng động,
+              tích cực hơn.
             </p>
           </div>
         </Grid>

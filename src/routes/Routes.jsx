@@ -18,12 +18,12 @@ const Routes = () => {
       <Route path="/" exact component={Home} />
       <Route path="/catalog/:slug" component={Product} />
       <Route path="/catalog" component={Catalog} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/progress" component={Progress} />
-      <Route path="/order" component={Order} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/password" component={Password} />
-      <Route path="/history" component={History} />
+      <Route path="/cart" exact component={Cart} />
+      <Route path="/progress" exact component={Progress} />
+      <Route path="/order" exact component={Order} />
+      <Route path="/profile" exact component={Profile} />
+      <Route path="/password" exact component={Password} />
+      <Route path="/history" exact component={History} />
     </Switch>
   );
 };

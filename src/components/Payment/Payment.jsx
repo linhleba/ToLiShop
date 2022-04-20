@@ -6,10 +6,13 @@ import numberWithCommas from '../../utils/numberWithCommas';
 import apiCaller from '../../utils/apiCaller';
 import { useDispatch } from 'react-redux';
 import { setSnackbar } from '../../redux/ducks/snackbar';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Payment = () => {
+  let history = useHistory();
+
   const [info, setInfo] = useState([]);
+  const [paymentOption, setPaymentOption] = useState('cash');
   useEffect(async () => {
     let profile = localStorage.getItem('profile');
     let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
@@ -52,27 +55,33 @@ const Payment = () => {
       details: [],
     };
 
-    await cartItems.forEach((book, index) => {
-      data.details.push({
-        book_id: book.slug,
-        quantity: book.quantity,
-        price_total: book.price * book.quantity,
+    if (paymentOption == 'cash') {
+      await cartItems.forEach((book, index) => {
+        data.details.push({
+          book_id: book.slug,
+          quantity: book.quantity,
+          price_total: book.price * book.quantity,
+        });
       });
-    });
-    let profile = localStorage.getItem('profile');
-    let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
+      let profile = localStorage.getItem('profile');
+      let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
 
-    await apiCaller('api/transaction', 'post', data, {
-      authorization: access_jwt_token,
-    }).then((res) => {
-      console.log(res);
-      if (res.data) {
-        console.log('vao day');
-        dispatch(setSnackbar(true, 'success', 'Đặt hàng thành công'));
-      } else {
-        dispatch(setSnackbar(true, 'error', 'Đã có lỗi xảy ra'));
-      }
-    });
+      await apiCaller('api/transaction', 'post', data, {
+        authorization: access_jwt_token,
+      }).then((res) => {
+        console.log(res);
+        if (res.data) {
+          console.log('vao day');
+          dispatch(setSnackbar(true, 'success', 'Đặt hàng thành công'));
+        } else {
+          dispatch(setSnackbar(true, 'error', 'Đã có lỗi xảy ra'));
+        }
+      });
+      history.push('/history');
+    } else {
+      alert(paymentOption);
+      history.push('/order/momo');
+    }
   };
   return (
     <div className="payment-container">
@@ -191,7 +200,9 @@ const Payment = () => {
                     data-view-index="cod"
                     readonly=""
                     name="payment-methods"
-                    value="cod"
+                    value="cash"
+                    checked={paymentOption === 'cash'}
+                    onChange={(e) => setPaymentOption(e.currentTarget.value)}
                   ></input>
                   {/* <span class="radio-fake"></span> */}
                   {/* <input type="radio" value="Male" name="gender" /> Male */}
@@ -220,7 +231,9 @@ const Payment = () => {
                     data-view-index="cod"
                     readonly=""
                     name="payment-methods"
-                    value="cod"
+                    value="momo"
+                    checked={paymentOption === 'momo'}
+                    onChange={(e) => setPaymentOption(e.currentTarget.value)}
                     // checked=""
                   ></input>
                   {/* <span class="radio-fake"></span> */}
@@ -245,11 +258,9 @@ const Payment = () => {
           </div>
         </div>
 
-        <Link to="/history">
-          <button className="order-button" type="submit" onClick={handleSubmit}>
-            Đặt mua
-          </button>
-        </Link>
+        <button className="order-button" type="submit" onClick={handleSubmit}>
+          Đặt mua
+        </button>
       </div>
       <div className="right-container">
         <div className="address">
