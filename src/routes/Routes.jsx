@@ -11,6 +11,7 @@ import Order from '../pages/Order';
 import Password from '../pages/Password';
 import Profile from '../pages/Profile';
 import History from '../pages/History';
+import Transaction from '../components/transaction/Transaction';
 
 const Routes = () => {
   return (
@@ -24,6 +25,7 @@ const Routes = () => {
       <Route path="/profile" exact component={Profile} />
       <Route path="/password" exact component={Password} />
       <Route path="/history" exact component={History} />
+      <Route path="/transaction" exact component={Transaction} />
     </Switch>
   );
 };
