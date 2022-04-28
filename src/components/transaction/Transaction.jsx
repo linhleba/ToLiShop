@@ -39,11 +39,11 @@ const Transaction = () => {
   }, []);
 
   const handleActiveClass = (e) => {
-    var elems = document.querySelectorAll('.active');
+    var elems = document.querySelectorAll('.active-transaction');
     [].forEach.call(elems, function (el) {
-      el.classList.remove('active');
+      el.classList.remove('active-transaction');
     });
-    e.target.className = 'active';
+    e.target.className = 'active-transaction';
   };
 
   const handleDisplayTransaction = (type) => {
@@ -190,7 +190,7 @@ const Transaction = () => {
           <h3 className="tittle__heading">Đơn hàng của tôi</h3>
           <div className="transaction-container__tab">
             <div
-              className="transaction__all-order active"
+              className="transaction__all-order active-transaction"
               onClick={(e) => {
                 setTab(1);
                 handleActiveClass(e);
