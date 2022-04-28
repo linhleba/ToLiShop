@@ -130,3 +130,7 @@
   font-weight: 400;
   color: blue;
 }
+.active {
+  color: rgb(13, 92, 182);
+  border-bottom: 2px solid rgb(13, 92, 182);
+}
