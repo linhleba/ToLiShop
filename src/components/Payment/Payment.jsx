@@ -77,7 +77,7 @@ const Payment = () => {
           dispatch(setSnackbar(true, 'error', 'Đã có lỗi xảy ra'));
         }
       });
-      history.push('/history');
+      history.push('/transaction');
     } else {
       alert(paymentOption);
       history.push('/order/momo');

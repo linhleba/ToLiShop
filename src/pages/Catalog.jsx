@@ -15,13 +15,20 @@ import apiCaller from '../utils/apiCaller';
 const Catalog = () => {
   const initFilter = {
     category: [],
-    color: [],
-    size: [],
+    author: [],
   };
   const [category, setCategory] = useState([]);
+  const [author, setAuthor] = useState([]);
+
+  const [limitCategory, setLimitCategory] = useState(5);
+
+  const [limitAuthor, setLimitAuthor] = useState(5);
   useEffect(() => {
     apiCaller('api/category').then((res) => {
       setCategory(res.data);
+    });
+    apiCaller('api/author').then((res) => {
+      setAuthor(res.data);
     });
   }, []);
 
@@ -46,12 +53,13 @@ const Catalog = () => {
             category: [...filter.category, item],
           });
           break;
-        // case 'COLOR':
-        //   setFilter({ ...filter, color: [...filter.color, item.color] });
-        //   break;
-        // case 'SIZE':
-        //   setFilter({ ...filter, size: [...filter.size, item.size] });
-        //   break;
+
+        case 'AUTHOR':
+          setFilter({
+            ...filter,
+            author: [...filter.author, item],
+          });
+          break;
         default:
       }
     } else {
@@ -60,14 +68,10 @@ const Catalog = () => {
           const newCategory = filter.category.filter((e) => e !== item);
           setFilter({ ...filter, category: newCategory });
           break;
-        // case 'COLOR':
-        //   const newColor = filter.color.filter((e) => e !== item.color);
-        //   setFilter({ ...filter, color: newColor });
-        //   break;
-        // case 'SIZE':
-        //   const newSize = filter.size.filter((e) => e !== item.size);
-        //   setFilter({ ...filter, size: newSize });
-        //   break;
+        case 'AUTHOR':
+          const newAuthor = filter.author.filter((e) => e !== item);
+          setFilter({ ...filter, author: newAuthor });
+          break;
         default:
       }
     }
@@ -150,7 +154,7 @@ const Catalog = () => {
               danh mục sản phẩm
             </div>
             <div className="catalog__filter__widget__content">
-              {category.map((item, index) => (
+              {category.slice(0, limitCategory).map((item, index) => (
                 <div
                   key={index}
                   className="catalog__filter__widget__content__item"
@@ -165,46 +169,44 @@ const Catalog = () => {
                 </div>
               ))}
             </div>
+            <Button
+              size="sm"
+              onClick={() => {
+                setLimitCategory((prevLimit) => prevLimit + 5);
+              }}
+            >
+              Xem thêm
+            </Button>
           </div>
 
           <div className="catalog__filter__widget">
-            <div className="catalog__filter__widget__title">màu sắc</div>
+            <div className="catalog__filter__widget__title">
+              Danh mục tác giả
+            </div>
             <div className="catalog__filter__widget__content">
-              {colors.map((item, index) => (
+              {author.slice(0, limitAuthor).map((item, index) => (
                 <div
                   key={index}
                   className="catalog__filter__widget__content__item"
                 >
                   <CheckBox
-                    label={item.display}
+                    label={item.name}
                     onChange={(input) =>
-                      filterSelect('COLOR', input.checked, item)
+                      filterSelect('AUTHOR', input.checked, item)
                     }
-                    checked={filter.color.includes(item.color)}
+                    checked={filter.author.includes(item)}
                   />
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="catalog__filter__widget">
-            <div className="catalog__filter__widget__title">kích cỡ</div>
-            <div className="catalog__filter__widget__content">
-              {size.map((item, index) => (
-                <div
-                  key={index}
-                  className="catalog__filter__widget__content__item"
-                >
-                  <CheckBox
-                    label={item.display}
-                    onChange={(input) =>
-                      filterSelect('SIZE', input.checked, item)
-                    }
-                    checked={filter.size.includes(item.size)}
-                  />
-                </div>
-              ))}
-            </div>
+            <Button
+              size="sm"
+              onClick={() => {
+                setLimitAuthor((prevLimit) => prevLimit + 5);
+              }}
+            >
+              Xem thêm
+            </Button>
           </div>
 
           <div className="catalog__filter__widget">
