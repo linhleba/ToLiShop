@@ -12,6 +12,7 @@ import Password from '../pages/Password';
 import Profile from '../pages/Profile';
 import History from '../pages/History';
 import Transaction from '../components/transaction/Transaction';
+import NganLuong from '../components/nganluong/NganLuong';
 
 const Routes = () => {
   return (
@@ -26,6 +27,11 @@ const Routes = () => {
       <Route path="/password" exact component={Password} />
       <Route path="/history" exact component={History} />
       <Route path="/transaction" exact component={Transaction} />
+      <Route
+        path="/nganluong_69c0e927278812d14edac6cb7755d99a.html"
+        exact
+        component={NganLuong}
+      />
     </Switch>
   );
 };
