@@ -13,6 +13,7 @@ import Profile from '../pages/Profile';
 import History from '../pages/History';
 import Transaction from '../components/transaction/Transaction';
 import NganLuong from '../components/nganluong/NganLuong';
+import MoMo from '../components/momo/MoMo';
 
 const Routes = () => {
   return (
@@ -32,6 +33,7 @@ const Routes = () => {
         exact
         component={NganLuong}
       />
+      <Route path="/order/momo" component={MoMo} />
     </Switch>
   );
 };
