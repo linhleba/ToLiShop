@@ -7,6 +7,14 @@ const Transaction = () => {
   const [transactions, setTransactions] = useState(null);
   const [books, setBooks] = useState([]);
   const [tab, setTab] = useState(1);
+
+  const queryParams = new URLSearchParams(window.location.search);
+
+  // console.log('helloam', useParams());
+  // // console.log('test', useParams());
+  // if (id) {
+  //   console.log('hell', id);
+  // }
   useEffect(async () => {
     let profile = localStorage.getItem('profile');
     let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
@@ -36,6 +44,29 @@ const Transaction = () => {
         });
       });
     });
+
+    // Handle trans momo
+    const payload = {
+      partnerCode: queryParams.get('partnerCode'),
+      orderId: queryParams.get('orderId'),
+      requestId: queryParams.get('requestId'),
+      amount: queryParams.get('amount'),
+      orderInfo: queryParams.get('orderInfo'),
+      orderType: queryParams.get('orderType'),
+      transId: queryParams.get('transId'),
+      resultCode: queryParams.get('resultCode'),
+      message: queryParams.get('message'),
+      payType: queryParams.get('payType'),
+      responseTime: queryParams.get('responseTime'),
+      extraData: queryParams.get('extraData'),
+      signature: queryParams.get('signature'),
+    };
+
+    apiCaller('api/transaction/updatestatusmomo', 'put', payload).then(
+      (res) => {
+        console.log('res', res);
+      },
+    );
   }, []);
 
   const handleActiveClass = (e) => {

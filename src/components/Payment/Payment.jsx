@@ -77,10 +77,59 @@ const Payment = () => {
           dispatch(setSnackbar(true, 'error', 'Đã có lỗi xảy ra'));
         }
       });
-      history.push('/history');
+      history.push('/transaction');
     } else {
-      alert(paymentOption);
-      history.push('/order/momo');
+      // alert(paymentOption);
+      // history.push('/order/momo');
+
+      const dataRequest = {
+        orderInfo: 'Giao dịch đặt hàng sách qua ToLiShop',
+        redirectUrl: 'http://localhost:3000/transaction',
+        amount: totalPrice,
+      };
+
+      // let transactionId;
+      await apiCaller('api/momo', 'post', dataRequest).then((res) => {
+        window.location.href = res.data.url;
+        console.log('res is', res);
+
+        // Transaction id momo
+        data.id = res.data.orderId;
+      });
+
+      await cartItems.forEach((book, index) => {
+        data.details.push({
+          book_id: book.slug,
+          quantity: book.quantity,
+          price_total: book.price * book.quantity,
+        });
+      });
+      let profile = localStorage.getItem('profile');
+      let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
+
+      await apiCaller('api/transaction/createMomo', 'post', data, {
+        authorization: access_jwt_token,
+      }).then((res) => {
+        console.log(res);
+        if (res.data) {
+          console.log('vao day');
+          dispatch(setSnackbar(true, 'success', 'Đặt hàng thành công'));
+        } else {
+          dispatch(setSnackbar(true, 'error', 'Đã có lỗi xảy ra'));
+        }
+      });
+
+      //  await apiCaller('api/transaction', 'post', data, {
+      //    authorization: access_jwt_token,
+      //  }).then((res) => {
+      //    console.log(res);
+      //    if (res.data) {
+      //      console.log('vao day');
+      //      dispatch(setSnackbar(true, 'success', 'Đặt hàng thành công'));
+      //    } else {
+      //      dispatch(setSnackbar(true, 'error', 'Đã có lỗi xảy ra'));
+      //    }
+      //  });
     }
   };
   return (
