@@ -46,7 +46,7 @@ const initialState = {
   confirmPassword: '',
 };
 
-const Login = ({ setToken, setOpenPopup }) => {
+const Login = ({ setToken, setOpenPopup, urlDestination = '/' }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -86,6 +86,8 @@ const Login = ({ setToken, setOpenPopup }) => {
             setToken(data.access_jwt_token);
             dispatch(authenticate({ access_jwt_token: data.access_jwt_token }));
             setOpenPopup(false);
+            history.push(urlDestination);
+            window.location.reload();
           }
         }
       } else {
@@ -106,7 +108,9 @@ const Login = ({ setToken, setOpenPopup }) => {
           setToken(data.access_jwt_token);
           dispatch(authenticate({ access_jwt_token: data.access_jwt_token }));
           setOpenPopup(false);
-          // history.push('/');
+
+          history.push(urlDestination);
+          window.location.reload();
         }
       }
       // dispatch(signIn(form, history));

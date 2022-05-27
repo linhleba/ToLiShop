@@ -9,8 +9,13 @@ import Button from '../components/Button';
 
 import productData from '../assets/fake-data/products';
 import numberWithCommas from '../utils/numberWithCommas';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSnackbar } from '../redux/ducks/snackbar';
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const cartItems = useSelector((state) => state.cartItems.value);
 
   const [cartProducts, setCartProducts] = useState(
@@ -37,6 +42,14 @@ const Cart = () => {
     );
   }, [cartItems]);
 
+  const handleOrder = () => {
+    if (cartItems.length == 0) {
+      dispatch(setSnackbar(true, 'error', 'Đơn hàng cần ít nhất 1 sản phẩm'));
+    } else {
+      history.push('/order');
+    }
+  };
+
   return (
     <Helmet title="Giỏ hàng">
       <div className="cart">
@@ -49,11 +62,14 @@ const Cart = () => {
             </div>
           </div>
           <div className="cart__info__btn">
-            <Link to="/order">
-              <Button size="block" style={{ marginBottom: '20px' }}>
-                Đặt hàng
-              </Button>
-            </Link>
+            <Button
+              size="block"
+              style={{ marginBottom: '20px' }}
+              onClick={() => handleOrder()}
+            >
+              Đặt hàng
+            </Button>
+
             {/* <Button size="block">Đặt hàng</Button> */}
             <Link to="/catalog">
               <Button size="block">Tiếp tục mua hàng</Button>

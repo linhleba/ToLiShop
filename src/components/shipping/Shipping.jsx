@@ -3,21 +3,25 @@ import './shipping.css';
 import apiCaller from '../../utils/apiCaller';
 import PopUp from '../popup/PopUp';
 import ShipInfo from '../shipinfo/ShipInfo';
+import { useHistory } from 'react-router-dom';
 
 const Shipping = ({ setStep }) => {
+  const history = useHistory();
   const [openPopup, setOpenPopup] = useState(false);
   const [info, setInfo] = useState([]);
   useEffect(async () => {
     let profile = localStorage.getItem('profile');
     let access_jwt_token = JSON.parse(profile)?.access_jwt_token;
+    // console.log('access_token is', access_jwt_token);
     await apiCaller('api/account/info', 'get', null, {
       authorization: access_jwt_token,
     }).then((res) => {
-      console.log('ket qua tra ve', res);
+      // console.log('ket qua tra ve hien tai', res);
       setInfo({
-        name: res.data.name ? res.data.name : 'Chưa xác định',
-        address: res.data.address ? res.data.address : 'Chưa xác định',
-        phone: res.data.telephone ? res.data.telephone : 'Chưa xác định',
+        username: res?.data?.username ? res.data.username : history.push('/'),
+        name: res?.data?.name ? res.data.name : 'Chưa xác định',
+        address: res?.data?.address ? res.data.address : 'Chưa xác định',
+        phone: res?.data?.telephone ? res.data.telephone : 'Chưa xác định',
       });
     });
     // console.log('info is', info);

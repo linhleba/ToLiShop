@@ -154,7 +154,7 @@ const Catalog = () => {
               danh mục sản phẩm
             </div>
             <div className="catalog__filter__widget__content">
-              {category.slice(0, limitCategory).map((item, index) => (
+              {category?.slice(0, limitCategory).map((item, index) => (
                 <div
                   key={index}
                   className="catalog__filter__widget__content__item"
@@ -184,7 +184,7 @@ const Catalog = () => {
               Danh mục tác giả
             </div>
             <div className="catalog__filter__widget__content">
-              {author.slice(0, limitAuthor).map((item, index) => (
+              {author?.slice(0, limitAuthor).map((item, index) => (
                 <div
                   key={index}
                   className="catalog__filter__widget__content__item"

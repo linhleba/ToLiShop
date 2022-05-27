@@ -36,9 +36,9 @@ const Product = (props) => {
         </SectionBody>
       </Section>
       <Section>
-        <SectionTitle>Khám phá thêm</SectionTitle>
+        <SectionTitle>Có thể bạn thích</SectionTitle>
         <SectionBody>
-          <Grid col={4} mdCol={2} smCol={1} gap={20}>
+          {/* <Grid col={4} mdCol={2} smCol={1} gap={20}>
             {relatedProducts.map((item, index) => (
               <ProductCard
                 key={index}
@@ -49,7 +49,7 @@ const Product = (props) => {
                 slug={item.id}
               />
             ))}
-          </Grid>
+          </Grid> */}
         </SectionBody>
       </Section>
     </Helmet>
