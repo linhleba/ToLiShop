@@ -7,6 +7,7 @@ import apiCaller from '../../utils/apiCaller';
 import { useDispatch } from 'react-redux';
 import { setSnackbar } from '../../redux/ducks/snackbar';
 import { Link, useHistory } from 'react-router-dom';
+import { API_URL } from '../../constants/Config';
 
 const Payment = () => {
   let history = useHistory();
@@ -20,11 +21,13 @@ const Payment = () => {
       authorization: access_jwt_token,
     }).then((res) => {
       console.log('ket qua tra ve', res);
-      setInfo({
-        name: res.data.name ? res.data.name : 'Chưa xác định',
-        address: res.data.address ? res.data.address : 'Chưa xác định',
-        phone: res.data.telephone ? res.data.telephone : 'Chưa xác định',
-      });
+      if (res) {
+        setInfo({
+          name: res.data.name ? res.data.name : 'Chưa xác định',
+          address: res.data.address ? res.data.address : 'Chưa xác định',
+          phone: res.data.telephone ? res.data.telephone : 'Chưa xác định',
+        });
+      }
     });
     // console.log('info is', info);
   }, []);
@@ -84,7 +87,7 @@ const Payment = () => {
 
       const dataRequest = {
         orderInfo: 'Giao dịch đặt hàng sách qua ToLiShop',
-        redirectUrl: 'http://localhost:3000/transaction',
+        redirectUrl: `${API_URL}/transaction`,
         amount: totalPrice,
       };
 

@@ -10,8 +10,17 @@ import { remove } from '../redux/product-modal/productModalSlice';
 
 import Button from './Button';
 import numberWithCommas from '../utils/numberWithCommas';
+import PopUp from '../components/popup/PopUp';
+import Login from '../components/login/Login';
+import { useLocation } from 'react-router-dom';
 
 const ProductView = (props) => {
+  const location = useLocation();
+  const [openPopup, setOpenPopup] = useState(false);
+  const [openPopup2, setOpenPopup2] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [token, setToken] = useState(user?.access_jwt_token);
+
   const dispatch = useDispatch();
 
   let product = props.product;
@@ -66,6 +75,9 @@ const ProductView = (props) => {
     //   alert('Vui lòng chọn kích cỡ!');
     //   return false;
     // }
+    if (!token) {
+      return false;
+    }
 
     return true;
   };
@@ -87,27 +99,35 @@ const ProductView = (props) => {
       // } else {
       //   alert('Fail');
       // }
+    } else {
+      setOpenPopup2(true);
     }
+    console.log(location.pathname);
   };
 
   const goToCart = () => {
-    if (check()) {
-      let newItem = {
-        slug: product.id,
-        // color: color,
-        // size: size,
-        price: product.price,
-        quantity: quantity,
-        name: product.name,
-        image_url: product.image_url,
-      };
-      if (dispatch(addItem(newItem))) {
-        dispatch(remove());
+    // if (check()) {
+    let newItem = {
+      slug: product.id,
+      // color: color,
+      // size: size,
+      price: product.price,
+      quantity: quantity,
+      name: product.name,
+      image_url: product.image_url,
+    };
+
+    if (dispatch(addItem(newItem))) {
+      dispatch(remove());
+      if (check()) {
         props.history.push('/cart');
       } else {
-        alert('Fail');
+        setOpenPopup(true);
       }
+    } else {
+      alert('Fail');
     }
+    // }
   };
 
   return (
@@ -199,6 +219,31 @@ const ProductView = (props) => {
           </Button>
         </div>
       </div>
+      <PopUp
+        // title="Đăng nhập"
+        isTitle="false"
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      >
+        <Login
+          setToken={setToken}
+          setOpenPopup={setOpenPopup}
+          urlDestination="/cart"
+        />
+      </PopUp>
+
+      <PopUp
+        // title="Đăng nhập"
+        isTitle="false"
+        openPopup={openPopup2}
+        setOpenPopup={setOpenPopup2}
+      >
+        <Login
+          setToken={setToken}
+          setOpenPopup={setOpenPopup}
+          urlDestination={location.pathname}
+        />
+      </PopUp>
     </div>
   );
 };
