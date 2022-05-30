@@ -58,6 +58,7 @@ const Product = (props) => {
           });
         }),
       );
+      console.log('data recommend proudct', recommendProducts);
     }
     console.log('data recommend proudct', recommendProducts);
   }, [recommendProductIds]);
@@ -79,16 +80,17 @@ const Product = (props) => {
         <SectionTitle>Gợi ý riêng cho bạn</SectionTitle>
         <SectionBody>
           <Grid col={4} mdCol={2} smCol={1} gap={20}>
-            {recommendProducts.map((item, index) => (
-              <ProductCard
-                key={index}
-                img01={item.image_url}
-                img02={item.image_url}
-                name={item.name}
-                price={Number(item.price)}
-                slug={item.id}
-              />
-            ))}
+            {recommendProducts &&
+              recommendProducts.map((item, index) => (
+                <ProductCard
+                  key={index}
+                  img01={item.image_url}
+                  img02={item.image_url}
+                  name={item.name}
+                  price={Number(item.price)}
+                  slug={item.id}
+                />
+              ))}
           </Grid>
         </SectionBody>
       </Section>
