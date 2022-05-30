@@ -52,14 +52,14 @@ const Product = (props) => {
             console.log('gia tri cua recomend', res);
             let dataProduct = res.data;
             setRecommendProducts((prevData) => ({
-              data: [...prevData.data, dataProduct],
+              data: [...prevData?.data, dataProduct],
             }));
           });
         }),
       );
       console.log('data recommend proudct', recommendProducts);
     }
-    console.log('data recommend proudct', recommendProducts);
+    // console.log('data recommend proudct', recommendProducts);
   }, [recommendProductIds]);
 
   //   console.log(result);
@@ -80,7 +80,7 @@ const Product = (props) => {
         <SectionBody>
           <Grid col={4} mdCol={2} smCol={1} gap={20}>
             {recommendProducts &&
-              recommendProducts.map((item, index) => (
+              recommendProducts.data.map((item, index) => (
                 <ProductCard
                   key={index}
                   img01={item.image_url}
