@@ -51,7 +51,9 @@ const Product = (props) => {
           apiCaller(`api/book/${item}`, 'get').then((res) => {
             console.log('gia tri cua recomend', res);
             let dataProduct = res.data;
-            setRecommendProducts((prevData) => [...prevData, dataProduct]);
+            setRecommendProducts((prevData) => ({
+              data: [...prevData.data, dataProduct],
+            }));
           });
         }),
       );
