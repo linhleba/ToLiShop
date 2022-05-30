@@ -19,7 +19,7 @@ const Product = (props) => {
 
   const [recommendProductIds, setRecommendProductIds] = useState(null);
 
-  const [recommendProducts, setRecommendProducts] = useState([]);
+  const [recommendProducts, setRecommendProducts] = useState(null);
 
   useEffect(() => {
     apiCaller(`api/book/${props.match.params.slug}`, 'get').then((res) => {
