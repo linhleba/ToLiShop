@@ -43,12 +43,12 @@ const Product = (props) => {
     });
   }, [userId]);
 
-  useEffect(() => {
+  useEffect(async () => {
     console.log('recommedn product:', recommendProductIds);
     if (recommendProductIds) {
       let tempArray = [];
       Promise.all(
-        recommendProductIds.map((item) => {
+        await recommendProductIds.map((item) => {
           apiCaller(`api/book/${item}`, 'get').then((res) => {
             console.log('gia tri cua recomend', res);
             // let dataProduct = res.data;
