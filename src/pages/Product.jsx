@@ -46,18 +46,18 @@ const Product = (props) => {
   useEffect(() => {
     console.log('recommedn product:', recommendProductIds);
     if (recommendProductIds) {
+      let tempArray = [];
       Promise.all(
         recommendProductIds.map((item) => {
           apiCaller(`api/book/${item}`, 'get').then((res) => {
             console.log('gia tri cua recomend', res);
-            let dataProduct = res.data;
-            setRecommendProducts((prevData) => ({
-              data: [...prevData?.data, dataProduct],
-            }));
+            // let dataProduct = res.data;
+            tempArray.push(res.data);
           });
         }),
       );
-      console.log('data recommend proudct', recommendProducts);
+      setRecommendProducts(tempArray);
+      console.log('data temparray proudct', tempArray);
     }
     // console.log('data recommend proudct', recommendProducts);
   }, [recommendProductIds]);
@@ -80,7 +80,7 @@ const Product = (props) => {
         <SectionBody>
           <Grid col={4} mdCol={2} smCol={1} gap={20}>
             {recommendProducts &&
-              recommendProducts.data.map((item, index) => (
+              recommendProducts.map((item, index) => (
                 <ProductCard
                   key={index}
                   img01={item.image_url}
