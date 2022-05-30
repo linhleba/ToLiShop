@@ -32,7 +32,7 @@ const Product = (props) => {
       authorization: access_jwt_token,
     }).then((res) => {
       // console.log('user id is:', res.data);
-      setUserId(res.data.user_id);
+      setUserId(res.data?.user_id);
     });
   }, []);
 
