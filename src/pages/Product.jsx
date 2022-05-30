@@ -34,7 +34,7 @@ const Product = (props) => {
       // console.log('user id is:', res.data);
       setUserId(res.data?.user_id);
     });
-  }, []);
+  }, [props.match.params.slug]);
 
   useEffect(() => {
     apiCaller(`api/MLData/${userId}`).then((res) => {
@@ -50,20 +50,18 @@ const Product = (props) => {
       Promise.all(
         recommendProductIds.map(async (item) => {
           await apiCaller(`api/book/${item}`, 'get').then(async (res) => {
-            console.log('gia tri cua recomend', res);
+            // console.log('gia tri cua recomend', res);
             // let dataProduct = res.data;
             await tempArray.push(res.data);
           });
         }),
       ).then(() => {
         setRecommendProducts(tempArray);
-        console.log('data temparray proudct', tempArray);
+        // console.log('data temparray proudct', tempArray);
       });
     }
     // console.log('data recommend proudct', recommendProducts);
   }, [recommendProductIds]);
-
-  //   console.log(result);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
