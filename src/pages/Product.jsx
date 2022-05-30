@@ -59,6 +59,7 @@ const Product = (props) => {
         }),
       );
     }
+    console.log('data recommend proudct', recommendProducts);
   }, [recommendProductIds]);
 
   //   console.log(result);
