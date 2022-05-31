@@ -7,12 +7,14 @@ import { useDispatch } from 'react-redux';
 
 import { addItem } from '../redux/shopping-cart/cartItemsSlide';
 import { remove } from '../redux/product-modal/productModalSlice';
+import { FaStar } from 'react-icons/fa';
 
 import Button from './Button';
 import numberWithCommas from '../utils/numberWithCommas';
 import PopUp from '../components/popup/PopUp';
 import Login from '../components/login/Login';
 import { useLocation } from 'react-router-dom';
+import { setSnackbar } from '../redux/ducks/snackbar';
 
 const ProductView = (props) => {
   const location = useLocation();
@@ -20,9 +22,36 @@ const ProductView = (props) => {
   const [openPopup2, setOpenPopup2] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const [token, setToken] = useState(user?.access_jwt_token);
+  const stars = Array(5).fill(0);
+  const [currentStarValue, setCurrentStarValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const handleClickRating = (value) => {
+    setCurrentStarValue(value);
+    dispatch(setSnackbar(true, 'success', 'Đánh giá thành công'));
+  };
+  const handleMouseHover = (value) => {
+    setHoverValue(value);
+  };
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
+  };
 
   const dispatch = useDispatch();
 
+  const colors = {
+    orange: '#FFBA5A',
+    grey: '#a9a9a9',
+  };
+  const styles = {
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    stars: {
+      marginTop: '10px',
+    },
+  };
   let product = props.product;
 
   if (product === undefined) {
@@ -198,6 +227,31 @@ const ProductView = (props) => {
         <div className="product__info__item">
           <Button onClick={() => addToCart()}>thêm vào giỏ</Button>
           <Button onClick={() => goToCart()}>mua ngay</Button>
+          <div className="rating__info__item__title">
+            <h2>Đánh giá </h2>
+            <div style={styles.stars}>
+              {stars.map((_, index) => {
+                return (
+                  <FaStar
+                    key={index}
+                    size={24}
+                    style={{
+                      marginRight: 10,
+                      cursor: 'pointer',
+                    }}
+                    color={
+                      (hoverValue || currentStarValue) > index
+                        ? colors.orange
+                        : colors.grey
+                    }
+                    onClick={() => handleClickRating(index + 1)}
+                    onMouseOver={() => handleMouseHover(index + 1)}
+                    onMouseLeave={() => handleMouseLeave()}
+                  />
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
       <div

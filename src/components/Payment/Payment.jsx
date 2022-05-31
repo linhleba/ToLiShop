@@ -311,7 +311,7 @@ const Payment = () => {
         </div>
 
         <button className="order-button" type="submit" onClick={handleSubmit}>
-          Đặt mua
+          ĐẶT MUA
         </button>
       </div>
       <div className="right-container">
