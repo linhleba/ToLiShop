@@ -87,7 +87,7 @@ const Payment = () => {
 
       const dataRequest = {
         orderInfo: 'Giao dịch đặt hàng sách qua ToLiShop',
-        redirectUrl: `${API_URL}/transaction`,
+        redirectUrl: 'http://tolishop.herokuapp.com/transaction',
         amount: totalPrice,
       };
 
