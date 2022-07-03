@@ -10,5 +10,5 @@ GVHD: ThS Mai Trọng Khang
 18521542 - Trần Duy Trọng
 
 # Công cụ phát triển
-Phát triển dựa trên 
+Phát triển dựa trên Reactjs
 
